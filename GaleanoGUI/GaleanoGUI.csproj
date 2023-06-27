@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B745EF73-21B7-4F2A-AA00-66550E140A67}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>GaleanoGUI</RootNamespace>
+    <AssemblyName>GaleanoGUI</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>C:\Users\adria\OneDrive\Desktop\V1.1\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>F9CEF2ED956FF3F756237BC6672AE6C2E901C1D4</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>GaleanoGUI_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.9\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.20.0.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.20.0\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.3, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13.3\lib\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Banco.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Banco.Designer.cs">
+      <DependentUpon>Banco.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BarraDeProgreso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BarraDeProgreso.Designer.cs">
+      <DependentUpon>BarraDeProgreso.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConectionX.cs" />
+    <Compile Include="CRUDReportes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CRUDReportes.Designer.cs">
+      <DependentUpon>CRUDReportes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CRUDUsuarios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CRUDUsuarios.Designer.cs">
+      <DependentUpon>CRUDUsuarios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DatosC.cs" />
+    <Compile Include="BusquedaReportes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BusquedaReportes.Designer.cs">
+      <DependentUpon>BusquedaReportes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="fechacorte.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="fechacorte.Designer.cs">
+      <DependentUpon>fechacorte.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUIPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUIPrincipal.Designer.cs">
+      <DependentUpon>GUIPrincipal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Inactivos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Inactivos.Designer.cs">
+      <DependentUpon>Inactivos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="marcadepago.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="marcadepago.Designer.cs">
+      <DependentUpon>marcadepago.cs</DependentUpon>
+    </Compile>
+    <Compile Include="pagaron.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="pagaron.Designer.cs">
+      <DependentUpon>pagaron.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PdfHeaderFooter.cs" />
+    <Compile Include="PdfPrint.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportesRegistrados.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportesRegistrados.Designer.cs">
+      <DependentUpon>ReportesRegistrados.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Banco.resx">
+      <DependentUpon>Banco.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BarraDeProgreso.resx">
+      <DependentUpon>BarraDeProgreso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BusquedaReportes.resx">
+      <DependentUpon>BusquedaReportes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CRUDReportes.resx">
+      <DependentUpon>CRUDReportes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CRUDUsuarios.resx">
+      <DependentUpon>CRUDUsuarios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="fechacorte.resx">
+      <DependentUpon>fechacorte.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUIPrincipal.resx">
+      <DependentUpon>GUIPrincipal.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Inactivos.resx">
+      <DependentUpon>Inactivos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="marcadepago.resx">
+      <DependentUpon>marcadepago.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="pagaron.resx">
+      <DependentUpon>pagaron.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="ReportesRegistrados.resx">
+      <DependentUpon>ReportesRegistrados.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="GaleanoGUI_TemporaryKey.pfx" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 y x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
