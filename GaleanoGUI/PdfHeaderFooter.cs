@@ -29,7 +29,7 @@ namespace GaleanoGUI
 
             string nombreArchivo = NOMBREPDF + ".docx";
             string rutaArchivo = Path.Combine(carpetaDestino, nombreArchivo);
-            string read = @"C:\Users\adria\OneDrive\Desktop\VS2019Trabajo\V1.5.2\GaleanoGUI\GaleanoGUI\diseño recibo.docx";
+            string read = @"C:\Users\adria\OneDrive\Desktop\VS2019Trabajo\V1.5.2\GaleanoGUI\GaleanoGUI\diseño recibo.rtf";
 
             // Abrir el documento Word original en modo de solo lectura
 
@@ -45,8 +45,8 @@ namespace GaleanoGUI
                 { "[MORA]", CLIENTE.getMora().ToString("0.00") },
                 { "[MULTA]", CLIENTE.getMulta().ToString("0.00") },
                 { "[DONACION]", CLIENTE.getDonacion().ToString("0.00") },
-                { "[TOTAL]", CLIENTE.getTOTAL().ToString("0.00") }
-                // Agrega más pares de marcadores y valores según tus necesidades
+                { "[TOTAL]", CLIENTE.getTOTAL().ToString("0.00") },
+                { "[NUMERO_ZONA]", CLIENTE.getZona() }
             };
 
             // Abrir el archivo original
