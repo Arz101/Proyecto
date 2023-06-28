@@ -44,6 +44,7 @@ namespace GaleanoGUI
                     }
                     catch (System.IO.IOException ex)
                     {
+                        MessageBox.Show(ex.Message, "!!!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         // Manejo de la excepción
                         // Otras acciones para manejar la excepción
                     }
