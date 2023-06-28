@@ -3,6 +3,7 @@ using System.IO;
 using GaleanoDataAcess;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using Microsoft.Office.Interop.Word;
 using Xceed.Document.NET;
 using Xceed.Words.NET;
 
@@ -29,7 +30,7 @@ namespace GaleanoGUI
 
             string nombreArchivo = NOMBREPDF + ".docx";
             string rutaArchivo = Path.Combine(carpetaDestino, nombreArchivo);
-            string read = @"C:\Users\adria\OneDrive\Desktop\VS2019Trabajo\V1.5.2\GaleanoGUI\GaleanoGUI\diseño recibo.rtf";
+            string read = @"C:\Users\adria\OneDrive\Desktop\VS2019Trabajo\V1.5.2\GaleanoGUI\GaleanoGUI\diseño recibo.docx";
 
             // Abrir el documento Word original en modo de solo lectura
 
@@ -48,39 +49,59 @@ namespace GaleanoGUI
                 { "[TOTAL]", CLIENTE.getTOTAL().ToString("0.00") },
                 { "[NUMERO_ZONA]", CLIENTE.getZona() }
             };
+            
 
-            // Abrir el archivo original
-
-            using (DocX documentOriginal = DocX.Load(read))
+            using (DocX Document = DocX.Load(read))
             {
-                // Realizar modificaciones en el documento original
-                // ...
-
-                // Guardar el documento original en un flujo de memoria
-                MemoryStream memoryStream = new MemoryStream();
-                documentOriginal.SaveAs(memoryStream);
-
-                // Crear una nueva instancia de DocX a partir del flujo de memoria
-                memoryStream.Position = 0;
-                using (DocX documentCopia = DocX.Load(memoryStream))
+                foreach (var element in Document.Paragraphs)
                 {
-                    // Guardar el documento clonado en una ubicación diferente
-
+                    // Reemplazar los marcadores con los valores correspondientes
                     foreach (var marcador in valoresMarcadores)
                     {
-                        // Buscar y reemplazar en todos los párrafos del documento
-                        foreach (var element in documentCopia.Paragraphs)
+                        if (element.Text.Contains(marcador.Key))
                         {
                             element.ReplaceText(marcador.Key, marcador.Value);
                         }
                     }
-
-                    documentCopia.SaveAs(rutaArchivo);
                 }
+                Document.SaveAs(rutaArchivo);
             }
 
+            Microsoft.Office.Interop.Word.Application wordApp = new Microsoft.Office.Interop.Word.Application();
+            wordApp.Visible = false;
 
+            // Crear una copia del documento original
+            Microsoft.Office.Interop.Word.Document documentOriginal = wordApp.Documents.Open(rutaArchivo);
+
+            nombreArchivo = NOMBREPDF + ".rtf";
+            rutaArchivo = Path.Combine(carpetaDestino, nombreArchivo);
+
+            // Guardar el documento como archivo RTF
+            documentOriginal.SaveAs(rutaArchivo, Microsoft.Office.Interop.Word.WdSaveFormat.wdFormatRTF);
+
+            // Cerrar el documento sin guardar cambios
+            documentOriginal.Close(Microsoft.Office.Interop.Word.WdSaveOptions.wdDoNotSaveChanges);
+
+            // Cerrar la aplicación de Word
+            wordApp.Quit();
+            try
+            {
+                string[] archivos = Directory.GetFiles(carpetaDestino, "*.docx");
+
+                foreach (string archivo in archivos)
+                {
+                    File.Delete(archivo);
+                }
+
+                //MessageBox.Show("Archivos .docx eliminados correctamente.", "Eliminación exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show("Error al eliminar los archivos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
+    
         public void CrearDirectorios()
         {
             string carpetaPrincipal = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Reportes");

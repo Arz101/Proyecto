@@ -32,9 +32,21 @@ namespace GaleanoGUI
 
             if (currentIndex < codigos.Count)
             {
+                DateTime tiempoInicio = DateTime.Now; // Registro del tiempo de inicio
+
+
                 for (int i = 0; i < stepSize && currentIndex < codigos.Count; i++)
                 {
+                    TimeSpan tiempoTranscurrido = DateTime.Now - tiempoInicio;
+                    int progresoActual = currentIndex * 100 / codigos.Count;
                     string codigo = codigos[currentIndex];
+                    int tiempoRestante = 0;
+                    if (progresoActual > 0)
+                    {
+                        tiempoRestante = (int)(tiempoTranscurrido.TotalSeconds / progresoActual * (100 - progresoActual));
+                    }
+                    string tiempoRestanteFormateado = TimeSpan.FromSeconds(tiempoRestante).ToString("mm\\:ss");
+                    label1.Text = tiempoRestanteFormateado;
                     try
                     {
                         // Código que intenta acceder al archivo
@@ -102,7 +114,7 @@ namespace GaleanoGUI
 
             // Configurar Timer
             timer = new Timer();
-            timer.Interval = 100; // Actualizar cada 100 milisegundos
+            timer.Interval = 500; // Actualizar cada 100 milisegundos
             timer.Tick += Timer_Tick;
             timer.Enabled = true;
 
