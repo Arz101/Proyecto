@@ -6,77 +6,19 @@ using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 
+
 namespace GaleanoGUI
 {
     class PdfHeaderFooter
     {
         private string ruta;
-        private static object lockObject = new object();
 
         public PdfHeaderFooter(string ruta)
         {
             this.ruta = ruta;
         }
 
-        public PdfHeaderFooter()
-        {}
-
-        /*
-        // Override del método OnEndPage para agregar el encabezado y pie de página
-        public override void OnEndPage(PdfWriter writer, Document document)
-        {
-            PdfContentByte cb = writer.DirectContent;
-
-            // Encabezado
-            PdfPTable header = new PdfPTable(1);
-            //header.TotalWidth = document.PageSize.Width - document.LeftMargin - document.RightMargin;
-            header.DefaultCell.Border = Rectangle.NO_BORDER;
-            header.AddCell(new Phrase("", new Font(Font.FontFamily.HELVETICA, 10, Font.NORMAL)));
-
-            float headerWidth = header.TotalWidth;
-            float headerHeight = header.TotalHeight;
-            float headerXPosition = (document.PageSize.Width - headerWidth) / 2;
-            float headerYPosition = document.PageSize.Height - document.TopMargin - (headerHeight / 2);
-            BaseFont baseFont = BaseFont.CreateFont(BaseFont.COURIER, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-            cb.SetFontAndSize(baseFont, 11);
-            cb.BeginText();
-            cb.ShowTextAligned(PdfContentByte.ALIGN_CENTER, "ADCSMAPCG", headerXPosition, headerYPosition, 0);
-            cb.EndText();
-
-            // Nueva línea de texto dentro del encabezado
-            string newLineText = @"COBRO POR SERVICIO DE AGUAPOTABLE";
-            float newLineXPosition = headerXPosition - 100; // Ajustar la posición X según tus necesidades
-            float newLineYPosition = headerYPosition - 20; // Descender 12 puntos
-            cb.BeginText();
-            cb.ShowTextAligned(PdfContentByte.ALIGN_LEFT, newLineText, newLineXPosition, newLineYPosition, 0);
-            cb.EndText();
-
-            // Posicionamiento del encabezado
-            //header.WriteSelectedRows(0, -1, document.LeftMargin, document.PageSize.Height - document.TopMargin + header.TotalHeight, writer.DirectContent);
-
-            // Pie de página
-            
-            
-            PdfPTable footer = new PdfPTable(1);
-            //footer.TotalWidth = document.PageSize.Width - document.LeftMargin - document.RightMargin;
-            footer.DefaultCell.Border = Rectangle.NO_BORDER;
-            // footer.AddCell(new Phrase("Cajero", new Font(Font.FontFamily.HELVETICA, 10, Font.NORMAL)));
-            string tabs = "                                              ";
-            float footerWidth = footer.TotalWidth;
-            float footerHeight = footer.TotalHeight;
-            float footerXPosition = (document.PageSize.Width - footerWidth) / 2 - 10;
-            float footerYPosition = document.BottomMargin - (footerHeight / 2) + 400;
-            baseFont = BaseFont.CreateFont(BaseFont.COURIER, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
-            cb.SetFontAndSize(baseFont, 11);
-            cb.BeginText();
-            cb.ShowTextAligned(PdfContentByte.ALIGN_CENTER, "Cajero" + tabs + "      Sello de Banco", footerXPosition, footerYPosition, 0);
-            cb.EndText();
-
-            // Posicionamiento del pie de página
-            //footer.WriteSelectedRows(0, -1, document.LeftMargin, document.BottomMargin - footer.TotalHeight, writer.DirectContent);
-        }
-    */
-
+        public PdfHeaderFooter() {}
         public void PDF(string ID, int x)
         {
             DatosC cl = new DatosC(ID);
@@ -129,11 +71,11 @@ namespace GaleanoGUI
                     "BOMBEO ELECTRICO: ZONA EL BALLE, SALINAS, SANTA MARTA Y CUATRO MILPAS"))));
 
                 // Asignar el contenido del encabezado a la parte del encabezado
-                headerPart.Header = header;
+                headerPart.Header = header; 
 
                 // Guardar los cambios en la parte del encabezado
                 headerPart.Header.Save();
-
+                
 
                 // Asignar las propiedades de sección al documento
                 mainPart.Document.Body = new Body(sectionProperties);
@@ -232,5 +174,34 @@ namespace GaleanoGUI
                 MessageBox.Show("No se pudo crear la carpeta: " + e.Message);
             }
         }
+        /*
+        public void FontStyleHeader(string rutaArchivo)
+        {
+            //HeaderPart headerPart = wordDocument.MainDocumentPart.GetPartsOfType<HeaderPart>().FirstOrDefault();
+
+            using (WordprocessingDocument wordDocument = WordprocessingDocument.Open(rutaArchivo, true))
+            {
+                // Obtén la referencia al encabezado
+                HeaderPart headerPart = wordDocument.MainDocumentPart.HeaderParts.FirstOrDefault();
+                if (headerPart != null)
+                {
+                    // Accede al elemento Run dentro del encabezado
+                    Run run = headerPart.Header.Descendants<Run>().FirstOrDefault();
+                    if (run != null)
+                    {
+                        // Modifica las propiedades de fuente del Run
+                        RunProperties runProperties = run.GetOrCreateChild<RunProperties>();
+                        runProperties.RunFonts = new RunFonts() { Ascii = "Arial", HighAnsi = "Arial" };
+                        runProperties.FontSize = new FontSize() { Val = "24" };
+                        runProperties.Color = new Color() { Val = "0000FF" }; // Color azul
+
+                        // Guarda los cambios en el encabezado
+                        headerPart.Header.Save();
+                    }
+                }
+            }
+
+        }
+        */
     }
 }

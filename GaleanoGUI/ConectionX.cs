@@ -130,29 +130,35 @@ namespace GaleanoDataAcess
         public void MarcarComoPagado(string codigo)
         {
             string actualizar = "UPDATE DATOSCORTE SET CODIGO_CLIENTE = @CODIGO_CLIENTE, HAPAGADO=@HAPAGADO WHERE CODIGO_CLIENTE=@CODIGO_CLIENTE";
-            SqlCommand cmd2 = new SqlCommand(actualizar, sql);
-            cmd2.Parameters.AddWithValue("@CODIGO_CLIENTE", codigo);
-            cmd2.Parameters.AddWithValue("@HAPAGADO", "SI");
+            using (SqlCommand cmd2 = new SqlCommand(actualizar, sql))
+            {
+                cmd2.Parameters.AddWithValue("@CODIGO_CLIENTE", codigo);
+                cmd2.Parameters.AddWithValue("@HAPAGADO", "SI");
 
-            cmd2.ExecuteNonQuery();
+                cmd2.ExecuteNonQuery();
+            }
         }
-
         public void MarcarComoNoPagado(string codigo)
         {
             string actualizar = "UPDATE DATOSCORTE SET CODIGO_CLIENTE = @CODIGO_CLIENTE, HAPAGADO=@HAPAGADO WHERE CODIGO_CLIENTE=@CODIGO_CLIENTE";
-            SqlCommand cmd2 = new SqlCommand(actualizar, sql);
-            cmd2.Parameters.AddWithValue("@CODIGO_CLIENTE", codigo);
-            cmd2.Parameters.AddWithValue("@HAPAGADO", "NO");
+            using (SqlCommand cmd2 = new SqlCommand(actualizar, sql))
+            {
+                cmd2.Parameters.AddWithValue("@CODIGO_CLIENTE", codigo);
+                cmd2.Parameters.AddWithValue("@HAPAGADO", "NO");
 
-            cmd2.ExecuteNonQuery();
+                cmd2.ExecuteNonQuery();
+            }
         }
         public DataTable TablaUsuariosDeReportes()
         {
-            SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM USUARIOS ORDER BY CAST(CODIGO_CLIENTE AS INT) ASC;", sql);
-            adapter.SelectCommand.CommandType = CommandType.Text;
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
-            return dt;
+            using (SqlDataAdapter adapter = new SqlDataAdapter("SELECT * FROM USUARIOS ORDER BY CAST(CODIGO_CLIENTE AS INT) ASC;", sql))
+            { 
+                adapter.SelectCommand.CommandType = CommandType.Text;
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+
+                return dt;
+            }
         }
 
         public DataTable Pagados()
@@ -160,12 +166,14 @@ namespace GaleanoDataAcess
             string query = "SELECT U.CODIGO_CLIENTE, U.NOMBRES, U.APELLIDOS, U.ZONA, P.HAPAGADO\n" +
             "FROM USUARIOS U JOIN DATOSCORTE P\n" +
             "ON U.CODIGO_CLIENTE = P.CODIGO_CLIENTE\n" +
-            "WHERE HAPAGADO = 'SI' ORDER BY CAST(P.CODIGO_CLIENTE AS INT) ASC;" ;
-            SqlDataAdapter adapter = new SqlDataAdapter(query, sql);
-            adapter.SelectCommand.CommandType = CommandType.Text;
-            DataTable dt = new DataTable();
-            adapter.Fill(dt);
-            return dt;
+            "WHERE HAPAGADO = 'SI' ORDER BY CAST(P.CODIGO_CLIENTE AS INT) ASC;";
+            using (SqlDataAdapter adapter = new SqlDataAdapter(query, sql))
+            {
+                adapter.SelectCommand.CommandType = CommandType.Text;
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+                return dt;
+            }
         }
 
         public void guardarFecha(string fecha)
@@ -173,10 +181,12 @@ namespace GaleanoDataAcess
             try
             {
                 MessageBox.Show("Hoy la nueva fecha de corte será " + fecha);
-                SqlCommand cmd = new SqlCommand("UPDATE DATOSCORTE SET FECHACORTE = '" + fecha + "'", sql);
-                cmd.ExecuteNonQuery();
+                using (SqlCommand cmd = new SqlCommand("UPDATE DATOSCORTE SET FECHACORTE = '" + fecha + "'", sql))
+                {
+                    cmd.ExecuteNonQuery();
+                }
             }
-            catch(Exception a)
+            catch (Exception a)
             {
                 MessageBox.Show(a.Message);
             }
