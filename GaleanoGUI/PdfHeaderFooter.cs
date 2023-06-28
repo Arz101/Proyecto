@@ -37,7 +37,15 @@ namespace GaleanoGUI
             {
                 { "[NOMBRE_CLIENTE]", CLIENTE.nombre() },
                 { "[NUMERO_DE_SR]", CLIENTE.CODIGO_CLIENTE },
-                { "[NUMERO_DE_SRA]", Convert.ToString(seriaA) }
+                { "[NUMERO_DE_SRA]", Convert.ToString(seriaA) },
+                { "[ACC]", CLIENTE.GetBanco() },
+                { "[MES]", CLIENTE.GetFechaRegistro() },
+                { "[FECHA]", CLIENTE.limiteFecha() },
+                { "[CUOTA]", CLIENTE.getCUOTA().ToString("0.00") },
+                { "[MORA]", CLIENTE.getMora().ToString("0.00") },
+                { "[MULTA]", CLIENTE.getMulta().ToString("0.00") },
+                { "[DONACION]", CLIENTE.getDonacion().ToString("0.00") },
+                { "[TOTAL]", CLIENTE.getTOTAL().ToString("0.00") }
                 // Agrega más pares de marcadores y valores según tus necesidades
             };
 

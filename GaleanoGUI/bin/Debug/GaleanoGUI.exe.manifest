@@ -66,14 +66,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GaleanoGUI.exe" size="115168">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GaleanoGUI.exe" size="115680">
       <assemblyIdentity name="GaleanoGUI" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>pGoyCRthl85zBYIrSJGqET0MZF8e0Hoh2R5G5AlJUEc=</dsig:DigestValue>
+        <dsig:DigestValue>qIgyBN4jRpsXyKGhmkszlPl5ilG+rX1XGJ6wtiIXR7o=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
