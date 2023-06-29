@@ -8,6 +8,7 @@ namespace GaleanoGUI
     public partial class GUIPrincipal : Form
     {
         ConectionX sql = new ConectionX();
+        PdfHeaderFooter pdf = new PdfHeaderFooter();
         public GUIPrincipal()
         {
             InitializeComponent();
@@ -30,6 +31,14 @@ namespace GaleanoGUI
                 {
                     sql.ModificacionesPorFechaDeCorte();
                 }     
+            }
+            try
+            {
+                pdf.CrearDirectorios();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
             }
         }
 

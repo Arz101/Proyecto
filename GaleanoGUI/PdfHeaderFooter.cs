@@ -86,18 +86,17 @@ namespace GaleanoGUI
             wordApp.Quit();
             try
             {
-                string[] archivos = Directory.GetFiles(carpetaDestino, "*.docx");
-
-                foreach (string archivo in archivos)
+                //string[] archivos = Directory.GetFiles(carpetaDestino, "*.docx");
+                if (File.Exists(Path.Combine(carpetaDestino, NOMBREPDF + ".docx")))
                 {
-                    File.Delete(archivo);
+                    File.Delete(Path.Combine(carpetaDestino, NOMBREPDF + ".docx"));
+                  // MessageBox.Show("Archivos .docx eliminados correctamente.", "Eliminación exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
-
-                //MessageBox.Show("Archivos .docx eliminados correctamente.", "Eliminación exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else throw new Exception();
             }
             catch (Exception ex)
             {
-                //MessageBox.Show("Error al eliminar los archivos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error al eliminar los archivos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -106,7 +105,16 @@ namespace GaleanoGUI
         {
             string carpetaPrincipal = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Reportes");
             string[] subcarpetas = { "Reportes Zona 1", "Reportes Zona 2", "Reportes Zona 3", "Reportes Zona 4", "Reportes Individuales"};
-    
+
+            Dictionary<string, List<string>> carpetas = new Dictionary<string, List<string>>()
+            {
+                { "Reportes Zona 1", new List<string>{ "PAGADOS", "NOPAGADOS" } },
+                { "Reportes Zona 2", new List<string>{ "PAGADOS", "NOPAGADOS" } },
+                { "Reportes Zona 3", new List<string>{ "PAGADOS", "NOPAGADOS" } },
+                { "Reportes Zona 4", new List<string>{ "PAGADOS", "NOPAGADOS" } },
+                { "Reportes Individuales", new List<string>{ "PAGADOS", "NOPAGADOS" } },
+            };
+
             try
             {
                 // Verificar la existencia de la carpeta principal
@@ -137,6 +145,20 @@ namespace GaleanoGUI
                         MessageBox.Show(String.Format("Subcarpeta '{0}' creada correctamente.", subcarpeta));
                     }
                 }
+
+                foreach (var ptr in carpetas)
+                {
+                    string interFolder = Path.Combine(carpetaPrincipal, ptr.Key);
+                    foreach (var value in ptr.Value)
+                    {
+                        if (!Directory.Exists(Path.Combine(interFolder, value)))
+                        {
+                            Directory.CreateDirectory(Path.Combine(interFolder, value));
+                            MessageBox.Show(String.Format("carpeta interna '{0}' en {1} creada correctamente.", value, ptr.Key));
+                        }
+                    }
+                }
+
             }
             catch (Exception e)
             {

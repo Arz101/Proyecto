@@ -28,7 +28,6 @@ namespace GaleanoGUI
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
-            pdf.CrearDirectorios();
             Form Progress;
             try
             {
