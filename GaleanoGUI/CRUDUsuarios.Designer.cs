@@ -60,10 +60,15 @@ namespace GaleanoGUI
             this.btnverInactivos = new System.Windows.Forms.Button();
             this.Actualizar = new System.Windows.Forms.Button();
             this.Salir = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.OBCTEXT = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TABLAUSUARIOS)).BeginInit();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -159,11 +164,11 @@ namespace GaleanoGUI
             this.groupBox2.Controls.Add(this.SalinasRadio);
             this.groupBox2.Controls.Add(this.CuatroMilpasRadio);
             this.groupBox2.Controls.Add(this.GaleanoRadio);
-            this.groupBox2.Location = new System.Drawing.Point(588, 16);
+            this.groupBox2.Location = new System.Drawing.Point(811, 16);
             this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox2.Size = new System.Drawing.Size(292, 113);
+            this.groupBox2.Size = new System.Drawing.Size(216, 113);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Zonas";
@@ -171,7 +176,7 @@ namespace GaleanoGUI
             // SantaMartaRadio
             // 
             this.SantaMartaRadio.AutoSize = true;
-            this.SantaMartaRadio.Location = new System.Drawing.Point(27, 73);
+            this.SantaMartaRadio.Location = new System.Drawing.Point(93, 74);
             this.SantaMartaRadio.Margin = new System.Windows.Forms.Padding(4);
             this.SantaMartaRadio.Name = "SantaMartaRadio";
             this.SantaMartaRadio.Size = new System.Drawing.Size(106, 21);
@@ -184,7 +189,7 @@ namespace GaleanoGUI
             // SalinasRadio
             // 
             this.SalinasRadio.AutoSize = true;
-            this.SalinasRadio.Location = new System.Drawing.Point(143, 38);
+            this.SalinasRadio.Location = new System.Drawing.Point(8, 74);
             this.SalinasRadio.Margin = new System.Windows.Forms.Padding(4);
             this.SalinasRadio.Name = "SalinasRadio";
             this.SalinasRadio.Size = new System.Drawing.Size(75, 21);
@@ -197,7 +202,7 @@ namespace GaleanoGUI
             // CuatroMilpasRadio
             // 
             this.CuatroMilpasRadio.AutoSize = true;
-            this.CuatroMilpasRadio.Location = new System.Drawing.Point(143, 74);
+            this.CuatroMilpasRadio.Location = new System.Drawing.Point(93, 23);
             this.CuatroMilpasRadio.Margin = new System.Windows.Forms.Padding(4);
             this.CuatroMilpasRadio.Name = "CuatroMilpasRadio";
             this.CuatroMilpasRadio.Size = new System.Drawing.Size(115, 21);
@@ -210,7 +215,7 @@ namespace GaleanoGUI
             // GaleanoRadio
             // 
             this.GaleanoRadio.AutoSize = true;
-            this.GaleanoRadio.Location = new System.Drawing.Point(27, 38);
+            this.GaleanoRadio.Location = new System.Drawing.Point(8, 23);
             this.GaleanoRadio.Margin = new System.Windows.Forms.Padding(4);
             this.GaleanoRadio.Name = "GaleanoRadio";
             this.GaleanoRadio.Size = new System.Drawing.Size(83, 21);
@@ -317,7 +322,6 @@ namespace GaleanoGUI
             this.TABLAUSUARIOS.AccessibleName = "";
             this.TABLAUSUARIOS.AllowUserToAddRows = false;
             this.TABLAUSUARIOS.AllowUserToDeleteRows = false;
-            this.TABLAUSUARIOS.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.TABLAUSUARIOS.BackgroundColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.TABLAUSUARIOS.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.TABLAUSUARIOS.GridColor = System.Drawing.SystemColors.ControlText;
@@ -328,7 +332,7 @@ namespace GaleanoGUI
             this.TABLAUSUARIOS.ReadOnly = true;
             this.TABLAUSUARIOS.RowHeadersWidth = 51;
             this.TABLAUSUARIOS.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.TABLAUSUARIOS.Size = new System.Drawing.Size(1315, 491);
+            this.TABLAUSUARIOS.Size = new System.Drawing.Size(1767, 491);
             this.TABLAUSUARIOS.TabIndex = 3;
             this.TABLAUSUARIOS.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -415,12 +419,53 @@ namespace GaleanoGUI
             this.Salir.UseVisualStyleBackColor = false;
             this.Salir.Click += new System.EventHandler(this.Salir_Click);
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.button2);
+            this.groupBox4.Controls.Add(this.button1);
+            this.groupBox4.Controls.Add(this.OBCTEXT);
+            this.groupBox4.Location = new System.Drawing.Point(446, 16);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(358, 113);
+            this.groupBox4.TabIndex = 11;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Agregar Observaciones:";
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(282, 65);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(70, 30);
+            this.button2.TabIndex = 13;
+            this.button2.Text = "Eliminar";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(282, 23);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(70, 33);
+            this.button1.TabIndex = 12;
+            this.button1.Text = "Agregar";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // OBCTEXT
+            // 
+            this.OBCTEXT.Location = new System.Drawing.Point(6, 21);
+            this.OBCTEXT.Multiline = true;
+            this.OBCTEXT.Name = "OBCTEXT";
+            this.OBCTEXT.Size = new System.Drawing.Size(270, 82);
+            this.OBCTEXT.TabIndex = 0;
+            // 
             // CRUDUsuarios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1343, 690);
+            this.ClientSize = new System.Drawing.Size(1796, 690);
+            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.Salir);
             this.Controls.Add(this.Actualizar);
             this.Controls.Add(this.btnverInactivos);
@@ -446,6 +491,8 @@ namespace GaleanoGUI
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.TABLAUSUARIOS)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -482,5 +529,9 @@ namespace GaleanoGUI
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.TextBox OBCTEXT;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button button1;
     }
 }

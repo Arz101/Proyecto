@@ -12,6 +12,7 @@ namespace GaleanoGUI
     class PdfHeaderFooter
     {
         private string ruta;
+        ConectionX sql = new ConectionX();
 
         public PdfHeaderFooter(string ruta)
         {
@@ -24,15 +25,24 @@ namespace GaleanoGUI
             DatosC CLIENTE = new DatosC(ID);
             int seriaA = CLIENTE.CrearReportePorCodigoCliente();
             string NOMBREPDF = CLIENTE.nombre();
-            string carpetaDestino;
-
-            carpetaDestino = (x == 1) ? @"C:\Users\adria\OneDrive\Desktop\Reportes\" + ruta : @"C:\Users\adria\OneDrive\Desktop\Reportes\Reportes Individuales\";
-
+            string desktop = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             string nombreArchivo = NOMBREPDF + ".docx";
-            string rutaArchivo = Path.Combine(carpetaDestino, nombreArchivo);
+            string rutaArchivo;
+            Dictionary<int, string> rutas = new Dictionary<int, string>()
+            {
+                {1, desktop + @"\Reportes\" + ruta},
+                {2, desktop + @"\Reportes\Reportes Individuales\"},
+                {3, desktop + @"\Reportes\Reportes Inactivos\" },
+            };
+
+            bool r = sql.VerificarFueraDeSistema(ID);
+
+            rutaArchivo = r ? rutas[3] : (x != 0 ? rutas[1] : rutas[2]);
+
+            rutaArchivo += sql.VerificarSiElClienteAPagado(ID) ? @"NORMAL\" + nombreArchivo : @"MORA\" + nombreArchivo;
+
             string read = @"C:\Users\adria\OneDrive\Desktop\VS2019Trabajo\V1.5.2\GaleanoGUI\GaleanoGUI\diseño recibo.docx";
 
-            // Abrir el documento Word original en modo de solo lectura
 
             Dictionary<string, string> valoresMarcadores = new Dictionary<string, string>
             {
@@ -49,7 +59,6 @@ namespace GaleanoGUI
                 { "[TOTAL]", CLIENTE.getTOTAL().ToString("0.00") },
                 { "[NUMERO_ZONA]", CLIENTE.getZona() }
             };
-            
 
             using (DocX Document = DocX.Load(read))
             {
@@ -73,30 +82,27 @@ namespace GaleanoGUI
             // Crear una copia del documento original
             Microsoft.Office.Interop.Word.Document documentOriginal = wordApp.Documents.Open(rutaArchivo);
 
-            nombreArchivo = NOMBREPDF + ".rtf";
-            rutaArchivo = Path.Combine(carpetaDestino, nombreArchivo);
+            //rutaArchivo =  sql.VerificarFueraDeSistema(ID) ? @"C:\Users\adria\OneDrive\Desktop\Reportes\Reportes Inactivos\" + NOMBREPDF : Path.Combine(carpetaDestino, nombreArchivo);
 
             // Guardar el documento como archivo RTF
-            documentOriginal.SaveAs(rutaArchivo, Microsoft.Office.Interop.Word.WdSaveFormat.wdFormatRTF);
+            documentOriginal.SaveAs(rutaArchivo.Replace(".docx", ".rtf"), Microsoft.Office.Interop.Word.WdSaveFormat.wdFormatRTF);
 
             // Cerrar el documento sin guardar cambios
             documentOriginal.Close(Microsoft.Office.Interop.Word.WdSaveOptions.wdDoNotSaveChanges);
 
             // Cerrar la aplicación de Word
             wordApp.Quit();
+            
             try
             {
-                //string[] archivos = Directory.GetFiles(carpetaDestino, "*.docx");
-                if (File.Exists(Path.Combine(carpetaDestino, NOMBREPDF + ".docx")))
+                if (File.Exists(rutaArchivo))
                 {
-                    File.Delete(Path.Combine(carpetaDestino, NOMBREPDF + ".docx"));
-                  // MessageBox.Show("Archivos .docx eliminados correctamente.", "Eliminación exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    File.Delete(rutaArchivo);
                 }
-                else throw new Exception();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error al eliminar los archivos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "A");
             }
         }
 
@@ -104,15 +110,16 @@ namespace GaleanoGUI
         public void CrearDirectorios()
         {
             string carpetaPrincipal = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Reportes");
-            string[] subcarpetas = { "Reportes Zona 1", "Reportes Zona 2", "Reportes Zona 3", "Reportes Zona 4", "Reportes Individuales"};
+            string[] subcarpetas = { "Reportes Zona 1", "Reportes Zona 2", "Reportes Zona 3", "Reportes Zona 4", "Reportes Individuales", "Reportes Inactivos"};
 
             Dictionary<string, List<string>> carpetas = new Dictionary<string, List<string>>()
             {
-                { "Reportes Zona 1", new List<string>{ "PAGADOS", "NOPAGADOS" } },
-                { "Reportes Zona 2", new List<string>{ "PAGADOS", "NOPAGADOS" } },
-                { "Reportes Zona 3", new List<string>{ "PAGADOS", "NOPAGADOS" } },
-                { "Reportes Zona 4", new List<string>{ "PAGADOS", "NOPAGADOS" } },
-                { "Reportes Individuales", new List<string>{ "PAGADOS", "NOPAGADOS" } },
+                { "Reportes Zona 1", new List<string>{ "NORMAL", "MORA" } },
+                { "Reportes Zona 2", new List<string>{ "NORMAL", "MORA" } },
+                { "Reportes Zona 3", new List<string>{ "NORMAL", "MORA" } },
+                { "Reportes Zona 4", new List<string>{ "NORMAL", "MORA" } },
+                { "Reportes Individuales", new List<string>{ "NORMAL", "MORA" } },
+                { "Reportes Inactivos" , new List<string>{"NORMAL", "MORA"} }
             };
 
             try

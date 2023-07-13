@@ -141,6 +141,12 @@
     <Compile Include="fechacorte.Designer.cs">
       <DependentUpon>fechacorte.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormAgg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAgg.Designer.cs">
+      <DependentUpon>FormAgg.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUIPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -192,6 +198,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="fechacorte.resx">
       <DependentUpon>fechacorte.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAgg.resx">
+      <DependentUpon>FormAgg.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUIPrincipal.resx">
       <DependentUpon>GUIPrincipal.cs</DependentUpon>

@@ -262,3 +262,4 @@ C:\Users\adria\OneDrive\Desktop\VS2019Trabajo\V1.5.2\GaleanoGUI\GaleanoGUI\bin\D
 C:\Users\adria\OneDrive\Desktop\VS2019Trabajo\V1.5.2\GaleanoGUI\GaleanoGUI\bin\Debug\Xceed.Words.NET.dll
 C:\Users\adria\OneDrive\Desktop\VS2019Trabajo\V1.5.2\GaleanoGUI\GaleanoGUI\bin\Debug\OpenXmlPowerTools.dll
 C:\Users\adria\OneDrive\Desktop\VS2019Trabajo\V1.5.2\GaleanoGUI\GaleanoGUI\bin\Debug\System.Management.Automation.dll
+C:\Users\adria\OneDrive\Desktop\VS2019Trabajo\V1.5.2\GaleanoGUI\GaleanoGUI\obj\Debug\GaleanoGUI.FormAgg.resources

@@ -232,5 +232,56 @@ namespace GaleanoGUI
         {
             CheckValueZonas = 4;
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string query = "UPDATE USUARIOS " +
+                           "SET OBSERVACIONES = @OBSERVACIONES " +
+                           "WHERE CODIGO_CLIENTE = @CODIGO";
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(sql.SQL))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@OBSERVACIONES", OBCTEXT.Text);
+                        cmd.Parameters.AddWithValue("@CODIGO", CodigoCliente.Text);
+                        cmd.ExecuteNonQuery(); 
+                        MessageBox.Show("MENSAJE AGREGADO CON EXITO!", "!!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch(Exception EX)
+            {
+                MessageBox.Show(EX.Message, "!!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            
+           
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string query = "UPDATE USUARIOS " +
+                           "SET OBSERVACIONES = NULL " +
+                           "WHERE CODIGO_CLIENTE = @CODIGO";
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(sql.SQL))
+                {
+                    conn.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
+                    { 
+                        cmd.Parameters.AddWithValue("@CODIGO", CodigoCliente.Text);
+                        cmd.ExecuteNonQuery(); 
+                        MessageBox.Show("MENSAJE ELIMINADO CON EXITO!", "!!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception EX)
+            {
+                MessageBox.Show(EX.Message, "!!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
     }
 }

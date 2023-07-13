@@ -30,12 +30,17 @@ namespace GaleanoGUI
 
         private void marcaActivo_Click(object sender, EventArgs e)
         {
+            sql.marcarComoInactivo(codigotxt.Text);
+        }
+
+        private void btnOBC_Click(object sender, EventArgs e)
+        {
             try
             {
-                sql.marcarActivo(codigotxt.Text);
-                dataInactivos.DataSource = sql.llenarGridInactivos();
+                Form inc = new FormAgg(codigotxt.Text);
+                inc.Show();
             }
-            catch(Exception a)
+            catch (Exception a)
             {
                 MessageBox.Show(a.Message, "Hubo un problema", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }

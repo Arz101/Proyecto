@@ -39,23 +39,23 @@ namespace GaleanoGUI
                         {
                             case "1":
                                 sql.numeroDeZona = "1";
-                                Progress = new BarraDeProgreso(sql.numeroDeZona, "Reportes Zona 1");
+                                Progress = new BarraDeProgreso(sql.numeroDeZona, @"Reportes Zona 1\");
                                 Progress.Show();
                                 break;
 
                             case "2":
                                 sql.numeroDeZona = "2";
-                                Progress = new BarraDeProgreso(sql.numeroDeZona, "Reportes Zona 2");
+                                Progress = new BarraDeProgreso(sql.numeroDeZona, @"Reportes Zona 2\");
                                 Progress.Show();
                                 break;
                             case "3":
                                 sql.numeroDeZona = "3";
-                                Progress = new BarraDeProgreso(sql.numeroDeZona, "Reportes Zona 3");
+                                Progress = new BarraDeProgreso(sql.numeroDeZona, @"Reportes Zona 3\");
                                 Progress.Show();
                                 break;
                             case "4":
                                 sql.numeroDeZona = "4";
-                                Progress = new BarraDeProgreso(sql.numeroDeZona, "Reportes Zona 4");
+                                Progress = new BarraDeProgreso(sql.numeroDeZona, @"Reportes Zona 4\");
                                 Progress.Show();
                                 break;
                             default:

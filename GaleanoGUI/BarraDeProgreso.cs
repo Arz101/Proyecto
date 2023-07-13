@@ -37,16 +37,7 @@ namespace GaleanoGUI
 
                 for (int i = 0; i < stepSize && currentIndex < codigos.Count; i++)
                 {
-                    TimeSpan tiempoTranscurrido = DateTime.Now - tiempoInicio;
-                    int progresoActual = currentIndex * 100 / codigos.Count;
                     string codigo = codigos[currentIndex];
-                    int tiempoRestante = 0;
-                    if (progresoActual > 0)
-                    {
-                        tiempoRestante = (int)(tiempoTranscurrido.TotalSeconds / progresoActual * (100 - progresoActual));
-                    }
-                    string tiempoRestanteFormateado = TimeSpan.FromSeconds(tiempoRestante).ToString("mm\\:ss");
-                    label1.Text = tiempoRestanteFormateado;
                     try
                     {
                         // Código que intenta acceder al archivo

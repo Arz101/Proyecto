@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Windows.Forms;
+using System.IO;
 
 namespace GaleanoDataAcess
 {
@@ -27,9 +28,14 @@ namespace GaleanoDataAcess
         }
         public DataTable MostrarDatos()
         {
-            using (SqlDataAdapter adapter = new SqlDataAdapter("SP_GRID", sql))
+            string query = @"SELECT D.CODIGO_CLIENTE, U.NOMBRES, U.APELLIDOS, P.CUOTA, P.MORA, P.DONACION, U.ZONA, P.MULTA, D.FUERASISTEMA, U.OBSERVACIONES 
+FROM PAGOS P JOIN USUARIOS U 
+ON P.CODIGO_CLIENTE = U.CODIGO_CLIENTE JOIN DATOSCORTE D ON P.CODIGO_CLIENTE = D.CODIGO_CLIENTE 
+WHERE D.FUERASISTEMA = 'NO' ORDER BY CAST(P.CODIGO_CLIENTE AS INT) ASC;";
+
+            using (SqlDataAdapter adapter = new SqlDataAdapter(query, sql))
             {
-                adapter.SelectCommand.CommandType = CommandType.StoredProcedure;
+                adapter.SelectCommand.CommandType = CommandType.Text;
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
                 return dt;
@@ -95,9 +101,14 @@ namespace GaleanoDataAcess
 
         public DataTable llenarGridInactivos()
         {
-            using (SqlDataAdapter adapter = new SqlDataAdapter("SP_GRIDINACTIVOS", sql))
+            string query = @"SELECT USUARIOS.CODIGO_CLIENTE, USUARIOS.NOMBRES, USUARIOS.APELLIDOS, DATOSCORTE.FUERASISTEMA, OBC.OBSERVACION, OBC.FECHA
+                           FROM USUARIOS
+                           JOIN DATOSCORTE ON USUARIOS.CODIGO_CLIENTE = DATOSCORTE.CODIGO_CLIENTE      
+                           LEFT JOIN OBC ON DATOSCORTE.CODIGO_CLIENTE = OBC.CODIGO_CLIENTE
+                           WHERE DATOSCORTE.FUERASISTEMA = 'SI'";
+            using (SqlDataAdapter adapter = new SqlDataAdapter(query, sql))
             {
-                adapter.SelectCommand.CommandType = CommandType.StoredProcedure;
+                adapter.SelectCommand.CommandType = CommandType.Text;
                 DataTable dt = new DataTable();
                 adapter.Fill(dt);
                 return dt;
@@ -309,6 +320,69 @@ namespace GaleanoDataAcess
                 }
             }
             return codigos;
+        }
+
+        public bool VerificarFueraDeSistema(string cod)
+        {
+            string query = @"SELECT DATOSCORTE.FUERASISTEMA
+                            FROM USUARIOS
+                            JOIN DATOSCORTE ON DATOSCORTE.CODIGO_CLIENTE = USUARIOS.CODIGO_CLIENTE
+                            WHERE USUARIOS.CODIGO_CLIENTE = @CODIGO";
+
+            using (SqlConnection conn = new SqlConnection(SQL))
+            {
+                conn.Open();
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@CODIGO", cod);
+                    using(SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            IDataRecord data = reader;
+                            if (Convert.ToString(data[0]) == "SI") return true;
+                            return false;
+                        }
+                    }
+
+                }    
+            }
+
+             return true;
+        }
+
+        public bool VerificarSiElClienteAPagado(string ID)
+        {
+            string query = @"SELECT HAPAGADO 
+                             FROM DATOSCORTE
+                             WHERE CODIGO_CLIENTE = @ID";
+            try
+            {
+                using (SqlConnection con = new SqlConnection(SQL))
+                {
+                    con.Open();
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@ID", ID);
+                        using (SqlDataReader reader = cmd.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                IDataRecord data = reader;
+                                if (data[0].ToString() == "SI") return true;
+                                else return false;
+                            }
+                            reader.Close();
+                        }
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "ERROR!!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+           
+            return false;
         }
 
     }
